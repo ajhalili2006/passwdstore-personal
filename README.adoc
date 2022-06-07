@@ -1,3 +1,42 @@
+:source-highlighter: pygments // technically needed for Asciidoc parsers for some code
+:gitlab-personal-namespace: https://gitlab.com/ajhalili2006
 = Andrei Jiroh's Passowrd Store
 
-This is where
+This is where I store some of my TOTP secrets and other cursed secrets I need to store in Git and in encrypted manner.
+While I can safely store my encrypted secrets here in GPG, some cannot be here such as my SSH and GPG private keys, as they're
+stored in {gitlab-personal-namespace}/dotfiles-secrets[an private repository only Andrei Jiroh can access].
+
+== Usage docs
+
+== Setup
+
+[source,bash]
+----
+# check distro docs for non-Debian/Ubuntu installations.
+sudo apt install pass git -y --no-install-recommends
+pass git clone https://mau.dev/ajhalili2006/passstore-personal
+----
+
+=== Adding new entry
+
+TBD
+
+== Note on whoever manage this repo as noted on my will
+
+You must keep all of my GPG private keys private and hidden from the public eye and its key passwords well-guarded against
+hackers and other people trying to get as much as senstive information hidden under encryption.
+
+Technically, DO NOT LEAK ANYTHING UNENCRYPTED, ESPECIALLY FROM THIS REPO.
+
+== FAQs
+
+=== Do this replace your usage of your current password manager (Bitwarden)
+
+Technically no. While I can still access them through the official CLI (himt: `npm i -g @bitwarden/cli`), I do not want
+to lose access to the TOTP codes, especially it's always a painful process to do the recovery processes through identity
+verification and sometimes, the brute-force hell.
+
+== License
+
+This documentation is licensed under CC BY-SA 4.0 Unported, while the rest are either under the default copyright rules or the MIT license.
+Check the headers of each file to avoid possible copyright issues. Stuff that are encrypted through GPG are not covered by MIT license.
