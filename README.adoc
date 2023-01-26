@@ -1,5 +1,5 @@
 :source-highlighter: pygments // technically needed for Asciidoc parsers for some code
-:gitlab-personal-namespace: https://gitlab.com/ajhalili2006
+:gitlab-personal-namespace: https://gitlab.com/ajhalili2006 // DO NOT UPDATE, dotfiles-secrets only exist in SaaS
 = Andrei Jiroh's Passowrd Store
 
 This is where I store some of my TOTP secrets and other cursed secrets I need to store in Git and in encrypted manner.
@@ -8,13 +8,21 @@ stored in {gitlab-personal-namespace}/dotfiles-secrets[an private repository onl
 
 == Usage docs
 
-== Setup
+=== Setup
 
 [source,bash]
 ----
-# check distro docs for non-Debian/Ubuntu installations.
-sudo apt install pass git -y --no-install-recommends
+# option 1: with passwordstore
+doas apk add pass git gpg
 pass git clone https://mau.dev/ajhalili2006/passstore-personal
+
+# option 2: with gopass
+# Debian and dervivative users should check https://github.com/gopasspw/gopass#debian-ubuntu-debian-raspbian-
+# first. See also TBD
+doas apk add gopass git gpg
+gopass clone ssh://git@mau.dev/ajhalili2006/passwdstore-personal
+# recommended: symlink ~/.password-store to our root gopass store
+ln -s ~/.local/share/gopass/stores/root ~/.password-store
 ----
 
 === Adding new entry
@@ -36,7 +44,14 @@ Technically no. While I can still access them through the official CLI (himt: `n
 to lose access to the TOTP codes, especially it's always a painful process to do the recovery processes through identity
 verification and sometimes, the brute-force hell.
 
+=== What's about Doppler?
+
+`pass`/`gopass` are being in use in combination with Doppler, an SecretOps cloud service, to store secrets. The
+biggest difference here is the earlier uses GPG for encryption and Git for version control while the latter is
+more complex and even store the keys to encrypt/decrypt stuff in a HSM.
+
 == License
 
-This documentation is licensed under CC BY-SA 4.0 Unported, while the rest are either under the default copyright rules or the MIT license.
-Check the headers of each file to avoid possible copyright issues. Stuff that are encrypted through GPG are not covered by MIT license.
+This documentation is licensed under CC BY-SA 4.0 Unported, while the rest are either under the default copyright
+rules or the MIT license. Check the headers of each file to avoid possible copyright issues. Stuff that are encrypted
+through GPG are not covered by MIT license.
