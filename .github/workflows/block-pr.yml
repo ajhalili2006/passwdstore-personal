@@ -1,0 +1,26 @@
+name: 'Block MRs from this project'
+
+on:
+  issues:
+    types: opened
+  pull_request_target:
+    types: opened
+  schedule:
+    - cron: '0 * * * *'
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dessant/repo-lockdown@v3
+        with:
+          lock-pr: true
+          close-pr: true
+          pr-comment: |
+            This repository doesn't accept merge requests, see the
+            README for details.
+          pr-lock-reason: resolved
